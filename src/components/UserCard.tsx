@@ -9,10 +9,6 @@ interface IUserCard {
 const UserCard: FC<IUserCard> = ({ user, highlight }) => {
   const [fullName, setFullName] = useState('');
 
-  const dragHandler = (e: React.DragEvent<HTMLDivElement>) => {
-    e.dataTransfer.setData('text/plain', user.login.uuid)
-  }
-
   useEffect(() => {
     const name = `${user.name.first} ${user.name.last}`;
     setFullName(
@@ -21,8 +17,8 @@ const UserCard: FC<IUserCard> = ({ user, highlight }) => {
   }, [highlight, user]);
 
   return (
-    <div className="user-card" draggable onDrag={dragHandler}>
-      <img className="photo" src={user.picture.medium} alt="" draggable={false} />
+    <div className="user-card">
+      <img className="photo" src={user.picture.medium} alt="" />
       <div className="credentials">
         <div className="credentials-top">
           <div
