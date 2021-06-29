@@ -6,8 +6,8 @@ const AppContext = createContext({
   setUsers: (_: User[]) => {},
   sortedUsers: Array<User[]>(),
   setSortedUsers: (_: User[][]) => {},
-  featuredUsers: Array<User>(),
-  setFeaturedUsers: (_: User[]) => {},
+  favoriteUsers: Array<User>(),
+  setFavoriteUsers: (_: User[]) => {},
   loading: true,
   setLoading: (_: boolean) => {},
 });

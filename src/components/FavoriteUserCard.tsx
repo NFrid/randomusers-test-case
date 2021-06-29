@@ -2,17 +2,17 @@ import { FC } from 'react';
 import User from '../types/User';
 import UserCard from './UserCard';
 
-interface IFeaturedUserCard {
+interface IFavoriteUserCard {
   user: User;
   removeHandler: () => void
 }
 
-const FeaturedUserCard: FC<IFeaturedUserCard> = ({ user, removeHandler }) => {
+const FavoriteUserCard: FC<IFavoriteUserCard> = ({ user, removeHandler }) => {
   return (
-    <div className="featured-user">
+    <div className="favorite-user">
       <UserCard user={user}/>
       <button onClick={removeHandler}>X</button>
     </div>
   );
 };
-export default FeaturedUserCard;
+export default FavoriteUserCard;
