@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import User from '../types/User';
 import AppContext from './AppContext';
-import SortedUserCard from './SortedUserCard';
+import UsersGroup from './UsersGroup';
 
 const SortedUsers = () => {
   const { users, sortedUsers, setSortedUsers } = useContext(AppContext);
@@ -26,14 +26,6 @@ const SortedUsers = () => {
     setSearch(e.target.value);
   };
 
-  const dragStartHandler = (
-    e: React.DragEvent<HTMLDivElement>,
-    i: number,
-    id: number
-  ) => {
-    e.dataTransfer.setData('add-favorite', JSON.stringify([i, id]));
-  };
-
   useEffect(() => {
     setSortedUsers(sortUsersByDecAge(users));
   }, [users, setSortedUsers]);
@@ -42,23 +34,7 @@ const SortedUsers = () => {
     <div className="sorted-users">
       <input type="text" onChange={searchHandler} />
       {sortedUsers.map((users, i) => (
-        <div className="users-group" key={i}>
-          <h3>
-            {i * 10 + 1}-{i * 10 + 10}
-          </h3>
-          {users
-            .filter((user) =>
-              `${user.name.first} ${user.name.last}`.includes(search)
-            )
-            .map((user, id) => (
-              <SortedUserCard
-                user={user}
-                highlight={search}
-                dragStartHandler={(e) => dragStartHandler(e, i, id)}
-                key={id}
-              />
-            ))}
-        </div>
+        <UsersGroup users={users} search={search} num={i} key={i} />
       ))}
     </div>
   );
