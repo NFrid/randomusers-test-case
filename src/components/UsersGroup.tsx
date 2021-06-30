@@ -35,7 +35,11 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
   return (
     <div className="users-group">
       <h3
-        className={filtered.length === 0 ? 'disabled' : ''}
+        className={
+          'group-header ' +
+          (filtered.length === 0 ? 'disabled ' : ' ') +
+          (collapse ? 'collapsed ' : ' ')
+        }
         onClick={handleCollapse}
       >
         {num * 10 + 1}-{num * 10 + 10}

@@ -1,0 +1,99 @@
+.App {
+  padding: 1rem 10%;
+  @media (max-width: 800px) {
+    padding: 1rem;
+  }
+}
+
+.users-ui {
+  display: flex;
+
+  .column {
+    display: table-cell;
+    padding: 1rem;
+  }
+
+  .sorted-users {
+    width: 50%;
+  }
+
+  .favorite-users {
+    width: 50%;
+    min-height: 100%;
+  }
+}
+
+.favorite-users {
+  h2 {
+    user-select: none;
+  }
+}
+
+.users-group {
+  .group-header {
+    user-select: none;
+
+    &.disabled {
+      background-color: lightgray;
+    }
+
+    &.collapsed {
+      &::after {
+        content: ' (...)';
+      }
+    }
+  }
+}
+
+.favorite-user {
+  display: inline;
+  width: 100%;
+
+  button {
+    flex: 1;
+    pointer-events: all;
+  }
+}
+
+.user-card {
+  display: flex;
+  border: 1px solid lightgray;
+  margin: 0.5rem 0;
+  pointer-events: none;
+
+  .photo {
+    pointer-events: none;
+  }
+
+  .credentials {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 0.5rem;
+
+    .name {
+      b {
+        color: tomato;
+      }
+    }
+
+    .registration-date {
+      &::before {
+        content: ', ';
+      }
+    }
+
+    .credentials-top {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}
+
+.hideme {
+  display: none;
+}
+
+.selected > div {
+  background-color: lightgray;
+}

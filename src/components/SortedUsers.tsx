@@ -31,7 +31,7 @@ const SortedUsers = () => {
   }, [users, setSortedUsers]);
 
   return (
-    <div className="sorted-users">
+    <div className="sorted-users column">
       <input type="text" onChange={searchHandler} />
       {sortedUsers.map((users, i) => (
         <UsersGroup users={users} search={search} num={i} key={i} />

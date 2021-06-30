@@ -19,7 +19,7 @@ const FavoriteUserCard: FC<IFavoriteUserCard> = ({
   dragEnterHandler,
   dragLeaveHandler,
   dragOverHandler,
-  dropHandler
+  dropHandler,
 }) => {
   return (
     <div
@@ -31,8 +31,10 @@ const FavoriteUserCard: FC<IFavoriteUserCard> = ({
       onDragOver={dragOverHandler}
       onDrop={dropHandler}
     >
-      <UserCard user={user} />
-      <button onClick={removeHandler}>X</button>
+      <UserCard
+        user={user}
+        append={<button onClick={removeHandler}>X</button>}
+      />
     </div>
   );
 };

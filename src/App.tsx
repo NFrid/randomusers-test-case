@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import usersApi from './api/users';
 import User from './types/User';
-import './App.css';
+import './App.scss';
 import SortedUsers from './components/SortedUsers';
 import FavoriteUsers from './components/FavoriteUsers';
 import AppContext from './components/AppContext';
@@ -12,17 +12,21 @@ function App() {
   const [favoriteUsers, setFavoriteUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const context = { 
-    users, setUsers,
-    sortedUsers, setSortedUsers,
-    favoriteUsers, setFavoriteUsers,
-    loading, setLoading
-  }
+  const context = {
+    users,
+    setUsers,
+    sortedUsers,
+    setSortedUsers,
+    favoriteUsers,
+    setFavoriteUsers,
+    loading,
+    setLoading,
+  };
 
   useEffect(() => {
     usersApi.getUsers(1000).then((users) => {
       setUsers(users);
-      setFavoriteUsers([users[2], users[3], users[4]])
+      setFavoriteUsers([users[2], users[3], users[4]]);
       setLoading(false);
     });
   }, []);

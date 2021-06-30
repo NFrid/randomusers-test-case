@@ -11,14 +11,10 @@ interface ISortedUserCard {
 const SortedUserCard: FC<ISortedUserCard> = ({
   user,
   highlight,
-  dragStartHandler
+  dragStartHandler,
 }) => {
   return (
-    <div
-      className="sorted-user"
-      draggable
-      onDragStart={dragStartHandler}
-    >
+    <div className="sorted-user" draggable onDragStart={dragStartHandler}>
       <UserCard user={user} highlight={highlight} />
     </div>
   );

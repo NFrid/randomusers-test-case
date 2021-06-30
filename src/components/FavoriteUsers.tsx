@@ -1,13 +1,11 @@
 import { useContext, useState } from 'react';
 import User from '../types/User';
-// import User from '../types/User';
 import AppContext from './AppContext';
 import FavoriteUserCard from './FavoriteUserCard';
 
 const FavoriteUsers = () => {
-  const { sortedUsers, favoriteUsers, setFavoriteUsers } = useContext(
-    AppContext
-  );
+  const { sortedUsers, favoriteUsers, setFavoriteUsers } =
+    useContext(AppContext);
   const [dragged, setDragged] = useState<number>(0);
 
   const moveInArray = (arr: any[], from: number, to: number) => {
@@ -21,6 +19,10 @@ const FavoriteUsers = () => {
     if (!favoriteUsers.includes(user))
       setFavoriteUsers(
         moveInArray([...favoriteUsers, user], favoriteUsers.length, id)
+      );
+    else
+      setFavoriteUsers(
+        moveInArray(favoriteUsers, favoriteUsers.indexOf(user), id)
       );
   };
 
@@ -53,7 +55,8 @@ const FavoriteUsers = () => {
     const newFavorite = e.dataTransfer.getData('add-favorite');
     if (newFavorite) {
       const ids: number[] = JSON.parse(newFavorite);
-      addFavoriteUser(sortedUsers[ids[0]][ids[1]], id)
+      console.log(id);
+      addFavoriteUser(sortedUsers[ids[0]][ids[1]], id);
     } else {
       setFavoriteUsers(moveInArray(favoriteUsers, dragged, id));
     }
@@ -61,7 +64,10 @@ const FavoriteUsers = () => {
   };
 
   return (
-    <div className="favorite-users">
+    <div
+      onDrop={(e) => dropHandler(e, favoriteUsers.length)}
+      className="favorite-users column"
+    >
       <h2>ИЗБРАННЫЕ</h2>
       {favoriteUsers.map((user, id) => (
         <FavoriteUserCard

@@ -4,9 +4,10 @@ import User from '../types/User';
 interface IUserCard {
   user: User;
   highlight?: string;
+  append?: React.ReactNode;
 }
 
-const UserCard: FC<IUserCard> = ({ user, highlight }) => {
+const UserCard: FC<IUserCard> = ({ user, highlight, append }) => {
   const [fullName, setFullName] = useState('');
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const UserCard: FC<IUserCard> = ({ user, highlight }) => {
           <div className="email">{user.email}</div>
         </div>
       </div>
+      {append ? append : ''}
     </div>
   );
 };
