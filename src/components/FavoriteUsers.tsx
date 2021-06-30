@@ -1,11 +1,13 @@
 import { useContext, useState } from 'react';
+import User from '../types/User';
 // import User from '../types/User';
 import AppContext from './AppContext';
 import FavoriteUserCard from './FavoriteUserCard';
 
 const FavoriteUsers = () => {
-  // const { users, favoriteUsers, setFavoriteUsers } = useContext(AppContext);
-  const { favoriteUsers, setFavoriteUsers } = useContext(AppContext);
+  const { sortedUsers, favoriteUsers, setFavoriteUsers } = useContext(
+    AppContext
+  );
   const [dragged, setDragged] = useState<number>(0);
 
   const moveInArray = (arr: any[], from: number, to: number) => {
@@ -15,11 +17,12 @@ const FavoriteUsers = () => {
     return temp;
   };
 
-  // const addFavoriteUser = (user: User) => {
-  //   setFavoriteUsers([
-  //     ...favoriteUsers, user
-  //   ]);
-  // };
+  const addFavoriteUser = (user: User, id: number) => {
+    if (!favoriteUsers.includes(user))
+      setFavoriteUsers(
+        moveInArray([...favoriteUsers, user], favoriteUsers.length, id)
+      );
+  };
 
   const removeFavoriteUser = (id: number) => {
     setFavoriteUsers(
@@ -32,23 +35,29 @@ const FavoriteUsers = () => {
   };
 
   const dragEnterHandler = (e: React.DragEvent<HTMLDivElement>) => {
-    e.currentTarget.classList.add('selected')
+    e.currentTarget.classList.add('selected');
   };
 
   const dragLeaveHandler = (e: React.DragEvent<HTMLDivElement>) => {
-    e.currentTarget.classList.remove('selected')
+    e.currentTarget.classList.remove('selected');
   };
 
   const dragOverHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-  }
+  };
 
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, id: number) => {
     e.preventDefault();
     e.stopPropagation();
-    e.currentTarget.classList.remove('selected')
-    setFavoriteUsers(moveInArray(favoriteUsers, dragged, id))
+    const newFavorite = e.dataTransfer.getData('add-favorite');
+    if (newFavorite) {
+      const ids: number[] = JSON.parse(newFavorite);
+      addFavoriteUser(sortedUsers[ids[0]][ids[1]], id)
+    } else {
+      setFavoriteUsers(moveInArray(favoriteUsers, dragged, id));
+    }
+    e.currentTarget.classList.remove('selected');
   };
 
   return (

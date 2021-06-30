@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import User from '../types/User';
 import AppContext from './AppContext';
-import UserCard from './UserCard';
+import SortedUserCard from './SortedUserCard';
 
 const SortedUsers = () => {
   const { users, sortedUsers, setSortedUsers } = useContext(AppContext);
@@ -26,6 +26,14 @@ const SortedUsers = () => {
     setSearch(e.target.value);
   };
 
+  const dragStartHandler = (
+    e: React.DragEvent<HTMLDivElement>,
+    i: number,
+    id: number
+  ) => {
+    e.dataTransfer.setData('add-favorite', JSON.stringify([i, id]));
+  };
+
   useEffect(() => {
     setSortedUsers(sortUsersByDecAge(users));
   }, [users, setSortedUsers]);
@@ -43,7 +51,12 @@ const SortedUsers = () => {
               `${user.name.first} ${user.name.last}`.includes(search)
             )
             .map((user, id) => (
-              <UserCard user={user} highlight={search} key={id}/>
+              <SortedUserCard
+                user={user}
+                highlight={search}
+                dragStartHandler={(e) => dragStartHandler(e, i, id)}
+                key={id}
+              />
             ))}
         </div>
       ))}
