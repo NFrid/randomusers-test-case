@@ -9,3 +9,7 @@
 .selected {
   background-color: lightgray;
 }
+
+.hideme {
+  display: none;
+}

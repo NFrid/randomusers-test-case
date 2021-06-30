@@ -10,14 +10,19 @@ interface IUsersGroup {
 
 const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
   const [filtered, setFiltered] = useState(users);
+  const [collapse, setCollapse] = useState(false);
 
   useEffect(() => {
-      setFiltered(
-        users.filter(
-          (user) => `${user.name.first} ${user.name.last}`.indexOf(search) !== -1
-        )
+    setFiltered(
+      users.filter(
+        (user) => `${user.name.first} ${user.name.last}`.indexOf(search) !== -1
+      )
     );
   }, [users, search, setFiltered]);
+
+  const handleCollapse = () => {
+    setCollapse(!collapse);
+  };
 
   const dragStartHandler = (
     e: React.DragEvent<HTMLDivElement>,
@@ -29,16 +34,21 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
 
   return (
     <div className="users-group">
-      <h3 className={filtered.length === 0 ? 'disabled' : ''}>
+      <h3
+        className={filtered.length === 0 ? 'disabled' : ''}
+        onClick={handleCollapse}
+      >
         {num * 10 + 1}-{num * 10 + 10}
       </h3>
-      {filtered.map((user, id) => (
+      <div className={collapse ? 'hideme' : ''}>
+        {filtered.map((user, id) => (
           <SortedUserCard
             user={user}
             highlight={search}
             dragStartHandler={(e) => dragStartHandler(e, num, id)}
           />
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
