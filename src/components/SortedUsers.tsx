@@ -1,9 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import User from '../types/User';
 import AppContext from './AppContext';
 import UsersGroup from './UsersGroup';
 
 const SortedUsers = () => {
+  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  useEffect(() => {
+    document.addEventListener('keydown', () => inputRef.current.focus());
+  }, []);
+
   const { users, sortedUsers, setSortedUsers } = useContext(AppContext);
   const [search, setSearch] = useState('');
 
@@ -34,6 +40,7 @@ const SortedUsers = () => {
     <div className="sorted-users column">
       <input
         type="text"
+        ref={inputRef}
         placeholder="Поиск по имени и фамилии..."
         onChange={searchHandler}
       />
