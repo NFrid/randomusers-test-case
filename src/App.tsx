@@ -27,9 +27,8 @@ function App() {
   };
 
   useEffect(() => {
-    usersApi.getUsers(1000).then((users) => {
+    usersApi.getUsers(5000).then((users) => {
       setUsers(users);
-      setFavoriteUsers([users[2], users[3], users[4]]);
       setLoading(false);
     });
   }, []);

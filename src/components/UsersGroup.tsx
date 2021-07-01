@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useVirtual } from 'react-virtual';
 import User from '../types/User';
 import AppContext from './AppContext';
 import SortedUserCard from './SortedUserCard';
@@ -10,9 +11,17 @@ interface IUsersGroup {
 }
 
 const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
+  const parentRef = React.useRef() as React.MutableRefObject<HTMLDivElement>;
+
   const { setDragToFav } = useContext(AppContext);
   const [filtered, setFiltered] = useState(users);
   const [collapse, setCollapse] = useState(false);
+
+  const rowVirtualizer = useVirtual({
+    size: filtered.length,
+    estimateSize: React.useCallback(() => 82, []),
+    parentRef,
+  });
 
   useEffect(() => {
     setFiltered(
@@ -52,17 +61,49 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
         {num * 10 + 1}-{num * 10 + 10}
       </h3>
       <div className={collapse ? 'hideme' : ''}>
-        {filtered.map((user) => (
-          <SortedUserCard
-            user={user}
-            highlight={search}
-            dragStartHandler={(e) =>
-              dragStartHandler(e, num, users.indexOf(user))
-            }
-            dragEndHandler={() => dragEndHandler()}
-            key={user.login.uuid}
-          />
-        ))}
+        <div
+          ref={parentRef}
+          style={{
+            maxHeight: `100vh`,
+            overflow: 'auto',
+          }}
+        >
+          <div
+            className="list-inner"
+            style={{
+              height: `${rowVirtualizer.totalSize}px`,
+              width: '100%',
+              position: 'relative',
+            }}
+          >
+            {rowVirtualizer.virtualItems.map((virtualRow) => {
+              const user = filtered[virtualRow.index];
+              return (
+                <div
+                  key={virtualRow.index}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: `${virtualRow.size}px`,
+                    transform: `translateY(${virtualRow.start}px)`,
+                  }}
+                >
+                  <SortedUserCard
+                    user={user}
+                    highlight={search}
+                    dragStartHandler={(e) =>
+                      dragStartHandler(e, num, users.indexOf(user))
+                    }
+                    dragEndHandler={() => dragEndHandler()}
+                    key={user.login.uuid}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -52,10 +52,12 @@
 .user-card {
   display: flex;
   border: 1px solid lightgray;
+  border-radius: 0.3rem;
   margin: 0.5rem 0;
   pointer-events: none;
 
   .photo {
+    border-radius: 0.3rem;
     pointer-events: none;
   }
 
