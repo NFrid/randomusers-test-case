@@ -19,7 +19,7 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
 
   const rowVirtualizer = useVirtual({
     size: filtered.length,
-    estimateSize: React.useCallback(() => 82, []),
+    estimateSize: React.useCallback(() => 88, []),
     parentRef,
   });
 
@@ -65,6 +65,7 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
       </h3>
       <div className={collapse ? 'hideme' : ''}>
         <div
+          className="list-outer"
           ref={parentRef}
           style={{
             maxHeight: `100vh`,

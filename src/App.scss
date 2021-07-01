@@ -1,6 +1,6 @@
 .App {
   padding: 1rem 10%;
-  @media (max-width: 800px) {
+  @media (max-width: 850px) {
     padding: 1rem;
   }
 }
@@ -17,6 +17,7 @@
 .favorite-users {
   h2 {
     user-select: none;
+    text-align: center;
   }
 }
 
@@ -24,6 +25,11 @@
   .group-header {
     user-select: none;
     cursor: pointer;
+    background-color: whitesmoke;
+    border-radius: 0.5rem;
+
+    padding: 0.2rem 1rem;
+    margin-bottom: 0;
 
     &.disabled {
       background-color: lightgray;
@@ -42,22 +48,34 @@
 
   button {
     cursor: pointer;
-    margin-left: auto;
     pointer-events: all;
+
+    margin-left: auto;
     width: 5rem;
+    border-radius: 0.5rem;
+
+    font-size: 1.5rem;
+    color: gray;
+    border-color: silver;
+    background-color: whitesmoke;
   }
 }
 
 .sorted-users {
   input {
     width: 100%;
-    height: 1.5rem;
+    height: 2rem;
     margin-top: 1rem;
+    border: 1px solid gray;
     border-radius: 1rem;
     outline: none;
 
     font-size: 1.2rem;
     text-align: center;
+
+    &::placeholder {
+      color: silver;
+    }
   }
 }
 
@@ -65,15 +83,22 @@
   cursor: pointer;
 }
 
+.list-outer {
+  padding: 5px;
+  padding-top: 0;
+}
+
 .user-card {
   display: flex;
-  border: 1px solid lightgray;
-  border-radius: 0.3rem;
-  margin: 0.5rem 0;
+  // border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
   pointer-events: none;
 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
   .photo {
-    border-radius: 0.3rem;
+    border-radius: 0.5rem;
     pointer-events: none;
   }
 

@@ -32,7 +32,11 @@ const SortedUsers = () => {
 
   return (
     <div className="sorted-users column">
-      <input type="text" onChange={searchHandler} />
+      <input
+        type="text"
+        placeholder="Поиск по имени и фамилии..."
+        onChange={searchHandler}
+      />
       {sortedUsers.map((users, i) => (
         <UsersGroup users={users} search={search} num={i} key={i} />
       ))}
