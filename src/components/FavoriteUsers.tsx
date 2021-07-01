@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import User from '../types/User';
 import AppContext from './AppContext';
 import FavoriteUserCard from './FavoriteUserCard';
@@ -64,6 +64,7 @@ const FavoriteUsers = () => {
 
   return (
     <div
+      onDragOver={(e) => dragOverHandler(e)}
       onDrop={(e) => dropHandler(e, favoriteUsers.length)}
       className={'favorite-users column' + (dragToFav ? ' droppable' : '')}
     >
