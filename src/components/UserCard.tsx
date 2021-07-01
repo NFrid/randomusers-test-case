@@ -13,7 +13,7 @@ const UserCard: FC<IUserCard> = ({ user, highlight, append }) => {
   useEffect(() => {
     const name = `${user.name.first} ${user.name.last}`;
     setFullName(
-      highlight ? name.replace(highlight, `<b>${highlight}</b>`) : name
+      highlight ? name.replace(new RegExp(highlight, 'i'), `<b>$&</b>`) : name
     );
   }, [highlight, user]);
 

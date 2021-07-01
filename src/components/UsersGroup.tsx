@@ -26,7 +26,10 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
   useEffect(() => {
     setFiltered(
       users.filter(
-        (user) => `${user.name.first} ${user.name.last}`.indexOf(search) !== -1
+        (user) =>
+          `${user.name.first} ${user.name.last}`
+            .toLowerCase()
+            .indexOf(search.toLowerCase()) !== -1
       )
     );
   }, [users, search, setFiltered]);
