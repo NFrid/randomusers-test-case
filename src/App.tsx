@@ -26,6 +26,7 @@ function App() {
     setDragToFav,
   };
 
+  // fetch users from the api and load them
   useEffect(() => {
     usersApi.getUsers(5000).then((users) => {
       setUsers(users);
@@ -36,14 +37,10 @@ function App() {
   return (
     <div className="App">
       <AppContext.Provider value={context}>
-        {loading ? (
-          <>Loading...</>
-        ) : (
-          <div className="users-ui">
-            <SortedUsers />
-            <FavoriteUsers />
-          </div>
-        )}
+        <div className="users-ui">
+          <SortedUsers />
+          <FavoriteUsers />
+        </div>
       </AppContext.Provider>
     </div>
   );

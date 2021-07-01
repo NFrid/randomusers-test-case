@@ -10,7 +10,8 @@ const SortedUsers = () => {
     document.addEventListener('keydown', () => inputRef.current.focus());
   }, []);
 
-  const { users, sortedUsers, setSortedUsers } = useContext(AppContext);
+  const { loading, users, sortedUsers, setSortedUsers } =
+    useContext(AppContext);
   const [search, setSearch] = useState('');
 
   /**
@@ -44,9 +45,13 @@ const SortedUsers = () => {
         placeholder="Поиск по имени и фамилии..."
         onChange={searchHandler}
       />
-      {sortedUsers.map((users, i) => (
-        <UsersGroup users={users} search={search} num={i} key={i} />
-      ))}
+      {loading ? (
+        <div className="loader" />
+      ) : (
+        sortedUsers.map((users, i) => (
+          <UsersGroup users={users} search={search} num={i} key={i} />
+        ))
+      )}
     </div>
   );
 };
