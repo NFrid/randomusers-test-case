@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import User from '../types/User';
+import AppContext from './AppContext';
 import SortedUserCard from './SortedUserCard';
 
 interface IUsersGroup {
@@ -9,6 +10,7 @@ interface IUsersGroup {
 }
 
 const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
+  const { setDragToFav } = useContext(AppContext);
   const [filtered, setFiltered] = useState(users);
   const [collapse, setCollapse] = useState(false);
 
@@ -30,6 +32,11 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
     id: number
   ) => {
     e.dataTransfer.setData('add-favorite', JSON.stringify([i, id]));
+    setDragToFav(true);
+  };
+
+  const dragEndHandler = () => {
+    setDragToFav(false);
   };
 
   return (
@@ -45,11 +52,15 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
         {num * 10 + 1}-{num * 10 + 10}
       </h3>
       <div className={collapse ? 'hideme' : ''}>
-        {filtered.map((user, id) => (
+        {filtered.map((user) => (
           <SortedUserCard
             user={user}
             highlight={search}
-            dragStartHandler={(e) => dragStartHandler(e, num, id)}
+            dragStartHandler={(e) =>
+              dragStartHandler(e, num, users.indexOf(user))
+            }
+            dragEndHandler={() => dragEndHandler()}
+            key={user.login.uuid}
           />
         ))}
       </div>

@@ -6,20 +6,11 @@
 }
 
 .users-ui {
-  display: flex;
+  display: grid;
+  grid-template-columns: 50% 50%;
 
   .column {
-    display: table-cell;
     padding: 1rem;
-  }
-
-  .sorted-users {
-    width: 50%;
-  }
-
-  .favorite-users {
-    width: 50%;
-    min-height: 100%;
   }
 }
 
@@ -46,13 +37,16 @@
 }
 
 .favorite-user {
-  display: inline;
   width: 100%;
 
   button {
-    flex: 1;
+    margin-left: auto;
     pointer-events: all;
   }
+}
+
+.selectable {
+  cursor: pointer;
 }
 
 .user-card {
@@ -96,4 +90,10 @@
 
 .selected > div {
   background-color: lightgray;
+}
+
+.droppable {
+  border: 1px dotted gray;
+  margin: -1px;
+  background-color: azure;
 }

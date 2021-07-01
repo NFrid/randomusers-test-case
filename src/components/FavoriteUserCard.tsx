@@ -23,7 +23,7 @@ const FavoriteUserCard: FC<IFavoriteUserCard> = ({
 }) => {
   return (
     <div
-      className="favorite-user"
+      className="favorite-user selectable"
       draggable
       onDragStart={dragStartHandler}
       onDragEnter={dragEnterHandler}

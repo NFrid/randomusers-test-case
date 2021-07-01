@@ -4,7 +4,7 @@ import AppContext from './AppContext';
 import FavoriteUserCard from './FavoriteUserCard';
 
 const FavoriteUsers = () => {
-  const { sortedUsers, favoriteUsers, setFavoriteUsers } =
+  const { dragToFav, sortedUsers, favoriteUsers, setFavoriteUsers } =
     useContext(AppContext);
   const [dragged, setDragged] = useState<number>(0);
 
@@ -55,7 +55,6 @@ const FavoriteUsers = () => {
     const newFavorite = e.dataTransfer.getData('add-favorite');
     if (newFavorite) {
       const ids: number[] = JSON.parse(newFavorite);
-      console.log(id);
       addFavoriteUser(sortedUsers[ids[0]][ids[1]], id);
     } else {
       setFavoriteUsers(moveInArray(favoriteUsers, dragged, id));
@@ -66,7 +65,7 @@ const FavoriteUsers = () => {
   return (
     <div
       onDrop={(e) => dropHandler(e, favoriteUsers.length)}
-      className="favorite-users column"
+      className={'favorite-users column' + (dragToFav ? ' droppable' : '')}
     >
       <h2>ИЗБРАННЫЕ</h2>
       {favoriteUsers.map((user, id) => (

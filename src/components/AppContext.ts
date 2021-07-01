@@ -10,6 +10,8 @@ const AppContext = createContext({
   setFavoriteUsers: (_: User[]) => {},
   loading: true,
   setLoading: (_: boolean) => {},
+  dragToFav: false,
+  setDragToFav: (_: boolean) => {},
 });
 
 export default AppContext;

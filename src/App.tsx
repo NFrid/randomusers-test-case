@@ -11,6 +11,7 @@ function App() {
   const [sortedUsers, setSortedUsers] = useState<User[][]>([]);
   const [favoriteUsers, setFavoriteUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [dragToFav, setDragToFav] = useState(false);
 
   const context = {
     users,
@@ -21,6 +22,8 @@ function App() {
     setFavoriteUsers,
     loading,
     setLoading,
+    dragToFav,
+    setDragToFav,
   };
 
   useEffect(() => {
