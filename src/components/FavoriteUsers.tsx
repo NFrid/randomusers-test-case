@@ -3,11 +3,13 @@ import User from '../types/User';
 import AppContext from './AppContext';
 import FavoriteUserCard from './FavoriteUserCard';
 
+/** favorite users zone with all the stuff 👽 */
 const FavoriteUsers = () => {
   const { dragToFav, sortedUsers, favoriteUsers, setFavoriteUsers } =
     useContext(AppContext);
   const [dragged, setDragged] = useState<number>(0);
 
+  /** move item in arr from from to to, shifting other elements */
   const moveInArray = (arr: any[], from: number, to: number) => {
     let temp = [...arr];
     const item = temp.splice(from, 1);
@@ -15,6 +17,7 @@ const FavoriteUsers = () => {
     return temp;
   };
 
+  /** add new user to favorites with id / shifts already existing user to id */
   const addFavoriteUser = (user: User, id: number) => {
     if (!favoriteUsers.includes(user))
       setFavoriteUsers(
@@ -26,29 +29,35 @@ const FavoriteUsers = () => {
       );
   };
 
+  /** removes user from favorites by its id */
   const removeFavoriteUser = (id: number) => {
     setFavoriteUsers(
       favoriteUsers.filter((user) => user !== favoriteUsers[id])
     );
   };
 
+  /** start of dragging! */
   const dragStartHandler = (id: number) => {
     setDragged(id);
   };
 
+  /** sets selected to potential target */
   const dragEnterHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.currentTarget.classList.add('selected');
   };
 
+  /** remove selected from potential target */
   const dragLeaveHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.currentTarget.classList.remove('selected');
   };
 
+  /** preventing all the stuff, just in case */
   const dragOverHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
   };
 
+  /** drops item to the target and put it in its place */
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, id: number) => {
     e.preventDefault();
     e.stopPropagation();

@@ -3,9 +3,11 @@ import User from '../types/User';
 import AppContext from './AppContext';
 import UsersGroup from './UsersGroup';
 
+/** sorted users zone with all the stuff 👽 */
 const SortedUsers = () => {
   const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
+  // sets event listener for selecting search input when typing
   useEffect(() => {
     document.addEventListener('keydown', () => inputRef.current.focus());
   }, []);
@@ -14,11 +16,8 @@ const SortedUsers = () => {
     useContext(AppContext);
   const [search, setSearch] = useState('');
 
-  /**
-   * sort User[] into User[][index],
-   * where index is like 10i + 1 to 10i + 10
-   * of their registered.age
-   */
+  /** sort User[] into User[][i], where i is like
+   * 10i + 1 to 10i + 10 of their registered.age */
   const sortUsersByDecAge = (users: User[]) => {
     let sorted = Array<User[]>();
     users.forEach((user) => {
@@ -29,10 +28,12 @@ const SortedUsers = () => {
     return sorted;
   };
 
+  /** sets search string from input value */
   const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
+  // sorts users whenever they change
   useEffect(() => {
     setSortedUsers(sortUsersByDecAge(users));
   }, [users, setSortedUsers]);

@@ -9,6 +9,7 @@ interface ISortedUserCard {
   dragEndHandler: () => void;
 }
 
+/** wrapper for UserCard taking dnd handlers and search string */
 const SortedUserCard: FC<ISortedUserCard> = ({
   user,
   highlight,

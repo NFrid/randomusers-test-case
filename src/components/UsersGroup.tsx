@@ -10,6 +10,8 @@ interface IUsersGroup {
   num: number;
 }
 
+/** numbered group of users, placed into virtual screen for performance,
+ * can be filtered by search string */
 const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
   const parentRef = React.useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -23,6 +25,7 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
     parentRef,
   });
 
+  // filter users whenever search or user array change
   useEffect(() => {
     setFiltered(
       users.filter(
@@ -34,10 +37,12 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
     );
   }, [users, search, setFiltered]);
 
+  /** toggles collapse flag */
   const handleCollapse = () => {
     setCollapse(!collapse);
   };
 
+  /** enables fav zone style and sets item indexes to transfer */
   const dragStartHandler = (
     e: React.DragEvent<HTMLDivElement>,
     i: number,
@@ -47,6 +52,7 @@ const UsersGroup: React.FC<IUsersGroup> = ({ users, search, num }) => {
     setDragToFav(true);
   };
 
+  /** disables fav zone style */
   const dragEndHandler = () => {
     setDragToFav(false);
   };

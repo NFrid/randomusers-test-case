@@ -12,6 +12,7 @@ interface IFavoriteUserCard {
   dropHandler: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
+/** wrapper for UserCard taking dnd handlers and remove handler */
 const FavoriteUserCard: FC<IFavoriteUserCard> = ({
   user,
   removeHandler,

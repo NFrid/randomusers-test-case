@@ -7,6 +7,7 @@ interface IUserCard {
   append?: React.ReactNode;
 }
 
+/** general user card component, can append additional component */
 const UserCard: FC<IUserCard> = ({ user, highlight, append }) => {
   const [fullName, setFullName] = useState('');
 

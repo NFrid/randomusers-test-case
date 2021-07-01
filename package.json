@@ -1,5 +1,5 @@
 {
-  "name": "junior-test-case",
+  "name": "randomusers-test-case",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
