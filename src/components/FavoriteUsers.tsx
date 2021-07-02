@@ -77,7 +77,7 @@ const FavoriteUsers = () => {
       onDrop={(e) => dropHandler(e, favoriteUsers.length)}
       className={'favorite-users column' + (dragToFav ? ' droppable' : '')}
     >
-      <h2>ИЗБРАННЫЕ</h2>
+      <h2>FAVORITES</h2>
       {favoriteUsers.map((user, id) => (
         <FavoriteUserCard
           user={user}

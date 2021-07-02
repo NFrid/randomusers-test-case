@@ -43,7 +43,7 @@ const SortedUsers = () => {
       <input
         type="text"
         ref={inputRef}
-        placeholder="Поиск по имени и фамилии..."
+        placeholder="Search by name..."
         onChange={searchHandler}
       />
       {loading ? (

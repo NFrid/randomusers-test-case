@@ -1,5 +1,6 @@
 {
   "name": "randomusers-test-case",
+  "homepage": "https://nfrid.github.io/randomusers-test-case",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
